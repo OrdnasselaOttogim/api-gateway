@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: auth-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/**
+        - id: job-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/**
+          filters:
+            - AuthenticationFilter
+
+
+server:
+  port: 8085
