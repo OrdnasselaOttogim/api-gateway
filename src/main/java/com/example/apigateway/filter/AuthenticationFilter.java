@@ -27,7 +27,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
         //String token = authorizationHeader.replace("Bearer ", "");
 
-        //chiama servizio jwt -> api/valid se ritorna 200 ok altrimenti return false
+
 
         URL url = new URL("http://localhost:8090/valid");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

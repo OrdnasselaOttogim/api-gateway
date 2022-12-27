@@ -14,7 +14,11 @@ spring:
         - id: auth-service
           uri: http://localhost:8090
           predicates:
-            - Path=/**
+            - Path=/token
+        - id: registration-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/registration
         - id: job-service
           uri: http://localhost:8082
           predicates:
