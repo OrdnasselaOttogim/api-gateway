@@ -3,6 +3,7 @@ package com.example.apigateway.filter;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,13 @@ import java.net.URL;
 @Component
 @Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
+
+    @Value("${config.auth-service-url}")
+    private String authServiceUrl;
+    @Value("${config.job-service-url}")
+    private String jobServiceUrl;
+
+
     public AuthenticationFilter() {
         super(Config.class);
     }
@@ -29,7 +37,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
 
 
-        URL url = new URL("http://localhost:8090/valid");
+        URL url = new URL(authServiceUrl + "/valid");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Authorization", authorizationHeader);
